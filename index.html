@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Asset Downloads</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      padding: 0;
+      background-color: #f4f4f9;
+    }
+    h1 {
+      color: #333;
+    }
+    h2 {
+      color: #444;
+      margin-top: 40px;
+    }
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    li {
+      margin: 8px 0;
+    }
+    a {
+      text-decoration: none;
+      color: #007BFF;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    footer {
+      margin-top: 40px;
+      text-align: center;
+      font-size: 0.8em;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Welcome to the Asset Downloads Page</h1>
+  <p>Below are the uploaded assets organized by category. Click on a link to download the file:</p>
+
+  <h2>3D Models</h2>
+  <ul id="3d-models">
+    <!-- Links to 3D models will appear here -->
+  </ul>
+
+  <h2>Images</h2>
+  <ul id="images">
+    <!-- Links to images will appear here -->
+  </ul>
+
+  <h2>Videos</h2>
+  <ul id="videos">
+    <!-- Links to videos will appear here -->
+  </ul>
+
+  <h2>Audios</h2>
+  <ul id="audios">
+    <!-- Links to audios will appear here -->
+  </ul>
+
+  <footer>
+    <p>Powered by MediaArt 3BB3 - VR Assets Fall 2024</p>
+  </footer>
+
+  <script>
+    // The fileData object will be dynamically updated via GitHub Actions
+    const fileData = {
+      "3d-models": [],
+      "images": [],
+      "videos": [],
+      "audios": []
+    };
+
+    const repoUrl = "https://mediaart-3bb3.github.io/vr_assets_fall_2024";
+
+    // Function to populate links dynamically
+    function populateLinks(category, elementId) {
+      const fileList = fileData[category];
+      const listElement = document.getElementById(elementId);
+
+      if (fileList && fileList.length > 0) {
+        fileList.forEach(fileName => {
+          const listItem = document.createElement('li');
+          const link = document.createElement('a');
+          link.href = `${repoUrl}/${category}/${fileName}`;
+          link.textContent = fileName;
+          listItem.appendChild(link);
+          listElement.appendChild(listItem);
+        });
+      } else {
+        const emptyItem = document.createElement('li');
+        emptyItem.textContent = `No ${category.replace('-', ' ')} uploaded yet.`;
+        listElement.appendChild(emptyItem);
+      }
+    }
+
+    // Populate the lists for each category
+    populateLinks("3d-models", "3d-models");
+    populateLinks("images", "images");
+    populateLinks("videos", "videos");
+    populateLinks("audios", "audios");
+  </script>
+
+</body>
+</html>
