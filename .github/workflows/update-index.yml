@@ -1,0 +1,51 @@
+name: Update Index File
+
+on:
+  push:
+    branches:
+      - main  # You can change this to your default branch
+
+jobs:
+  update-index:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'  # Ensure Node.js is installed for running a script
+
+      - name: Get list of files from repository
+        run: |
+          # Get list of files in each folder
+          echo "Fetching files from repository folders..."
+
+          # 3D Models
+          MODEL_FILES=$(ls uploads/3d-models)
+          IMAGE_FILES=$(ls uploads/images)
+          VIDEO_FILES=$(ls uploads/videos)
+          AUDIO_FILES=$(ls uploads/audios)
+
+          echo "Updating index.html..."
+
+          # Build the new fileData object
+          FILE_DATA="const fileData = {
+            '3d-models': [$(echo $MODEL_FILES | sed 's/ /", "/g' | sed 's/^/"/' | sed 's/$/"/')],
+            'images': [$(echo $IMAGE_FILES | sed 's/ /", "/g' | sed 's/^/"/' | sed 's/$/"/')],
+            'videos': [$(echo $VIDEO_FILES | sed 's/ /", "/g' | sed 's/^/"/' | sed 's/$/"/')],
+            'audios': [$(echo $AUDIO_FILES | sed 's/ /", "/g' | sed 's/^/"/' | sed 's/$/"/')]
+          };"
+
+          # Update the index.html file with the new fileData object
+          sed -i "s|const fileData = {[^}]*};|$FILE_DATA|" index.html
+
+      - name: Commit and push the changes
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "GitHub Actions"
+          git add index.html
+          git commit -m "Auto-update fileData in index.html"
+          git push
