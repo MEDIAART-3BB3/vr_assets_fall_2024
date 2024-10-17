@@ -29,37 +29,36 @@ jobs:
           VIDEO_FILES=$(ls ../videos)
           AUDIO_FILES=$(ls ../audios)
 
-       echo "Updating index.html..."
+          echo "Updating index.html..."
 
-        # Build the list of files for each category first
-  MODEL_LIST=$(echo $MODEL_FILES | sed 's/ /", "/g' | sed 's/^/"/' | sed 's/$/"/')
-  IMAGE_LIST=$(echo $IMAGE_FILES | sed 's/ /", "/g' | sed 's/^/"/' | sed 's/$/"/')
-  VIDEO_LIST=$(echo $VIDEO_FILES | sed 's/ /", "/g' | sed 's/^/"/' | sed 's/$/"/')
-  AUDIO_LIST=$(echo $AUDIO_FILES | sed 's/ /", "/g' | sed 's/^/"/' | sed 's/$/"/')
+          # Build the list of files for each category first
+          MODEL_LIST=$(echo $MODEL_FILES | sed 's/ /", "/g' | sed 's/^/"/' | sed 's/$/"/')
+          IMAGE_LIST=$(echo $IMAGE_FILES | sed 's/ /", "/g' | sed 's/^/"/' | sed 's/$/"/')
+          VIDEO_LIST=$(echo $VIDEO_FILES | sed 's/ /", "/g' | sed 's/^/"/' | sed 's/$/"/')
+          AUDIO_LIST=$(echo $AUDIO_FILES | sed 's/ /", "/g' | sed 's/^/"/' | sed 's/$/"/')
 
-  # Now build the full FILE_DATA string
-  FILE_DATA="const fileData = {
-    '3d-models': [$MODEL_LIST],
-    'images': [$IMAGE_LIST],
-    'videos': [$VIDEO_LIST],
-    'audios': [$AUDIO_LIST]
-  };"
-
+          # Now build the full FILE_DATA string
+          FILE_DATA="const fileData = {
+            '3d-models': [$MODEL_LIST],
+            'images': [$IMAGE_LIST],
+            'videos': [$VIDEO_LIST],
+            'audios': [$AUDIO_LIST]
+          };"
 
           # Print FILE_DATA for debugging
           echo "FILE_DATA: $FILE_DATA"
 
-      # Update the index.html file with the new fileData object
-  sed -i 's|const fileData = {[^}]*};|'"$FILE_DATA"'|' ../index.html
+          # Update the index.html file with the new fileData object
+          sed -i 's|const fileData = {[^}]*};|'"$FILE_DATA"'|' ../index.html
 
           # Verify if index.html is updated correctly
           echo "Updated index.html:"
-          cat index.html
+          cat ../index.html
           
       - name: Commit and push the changes
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "GitHub Actions"
-          git add index.html
+          git add ../index.html
           git commit -m "Auto-update fileData in index.html"
           git push
