@@ -24,10 +24,10 @@ jobs:
           echo "Fetching files from repository folders..."
 
           # 3D Models
-          MODEL_FILES=$(ls -Q 3d-models)
-          IMAGE_FILES=$(ls -Q images)
-          VIDEO_FILES=$(ls -Q videos)
-          AUDIO_FILES=$(ls -Q audios)
+          MODEL_FILES=$(ls  3d-models)
+          IMAGE_FILES=$(ls  images)
+          VIDEO_FILES=$(ls  videos)
+          AUDIO_FILES=$(ls  audios)
 
           echo "Updating index.html..."
 
