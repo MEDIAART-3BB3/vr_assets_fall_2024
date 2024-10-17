@@ -45,6 +45,9 @@ jobs:
             'audios': [$AUDIO_LIST]
           };"
 
+          # Now build the full FILE_DATA string, escaping quotes properly
+          FILE_DATA=$(printf 'const fileData = {\n  "3d-models": [%s],\n  "images": [%s],\n  "videos": [%s],\n  "audios": [%s]\n};' "$MODEL_LIST" "$IMAGE_LIST" "$VIDEO_LIST" "$AUDIO_LIST")
+
           # Print FILE_DATA for debugging
           echo "FILE_DATA: $FILE_DATA"
 
