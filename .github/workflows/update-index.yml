@@ -16,7 +16,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '16'  # Ensure Node.js is installed for running a script
+          node-version: '20'  # Ensure Node.js is installed for running a script
 
       - name: Get list of files from repository
         run: |
@@ -24,10 +24,10 @@ jobs:
           echo "Fetching files from repository folders..."
 
           # 3D Models
-          MODEL_FILES=$(ls ../3d-models)
-          IMAGE_FILES=$(ls ../images)
-          VIDEO_FILES=$(ls ../videos)
-          AUDIO_FILES=$(ls ../audios)
+          MODEL_FILES=$(ls 3d-models)
+          IMAGE_FILES=$(ls images)
+          VIDEO_FILES=$(ls videos)
+          AUDIO_FILES=$(ls audios)
 
           echo "Updating index.html..."
 
