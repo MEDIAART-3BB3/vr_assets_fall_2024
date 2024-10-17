@@ -40,7 +40,7 @@ jobs:
           };"
 
           # Update the index.html file with the new fileData object
-          sed -i "s|const fileData = {[^}]*};|$FILE_DATA|" index.html
+          sed -i 's|const fileData = {[^}]*};|$FILE_DATA|' index.html
 
       - name: Commit and push the changes
         run: |
