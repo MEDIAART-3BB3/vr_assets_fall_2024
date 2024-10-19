@@ -45,7 +45,8 @@
   "images": [
     "canada-maple-leaf-svgrepo-com - Media Art 3BB3.svg",
     "TokataCampamento - Media Art 3BB3.png",
-    "cacharpo - Media Art 3BB3.png"
+    "cacharpo - Media Art 3BB3.png",
+    "seis8s2 - Media Art 3BB3.png"
   ],
   "videos": [
     "demo-Sesis8-defense - Media Art 3BB3.mp4"
@@ -66,7 +67,7 @@
             const encodedFileName = encodeURIComponent(fileName); // Encode filename for URL
             const link = document.createElement('a');
             link.href = `https://mediaart-3bb3.github.io/vr_assets_fall_2024/${encodedFileName}`; // Use the GitHub link
-            link.textContent = fileName; // Display the original filename
+            link.textContent = link.href; // Display the link
             listItem.appendChild(link);
             listElement.appendChild(listItem);
           });
