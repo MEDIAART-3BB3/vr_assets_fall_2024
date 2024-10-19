@@ -33,24 +33,25 @@
       <script>
         const fileData = {
   "3d-models": [
-    "https://mediaart-3bb3.github.io/vr_assets_fall_2024/https%3A%2F%2Fdrive.google.com%2Fopen%3Fid%3D1epJm8Vp9AWAIJyJE8EiLYSVVUKfTXC5l",
-    "https://mediaart-3bb3.github.io/vr_assets_fall_2024/https%3A%2F%2Fdrive.google.com%2Fopen%3Fid%3D13z_okxIZvxE8J6ye3B5b8JnYY2pjUSNF",
-    "https://mediaart-3bb3.github.io/vr_assets_fall_2024/https%3A%2F%2Fdrive.google.com%2Fopen%3Fid%3D1v9-NPhtSiRnFBoRKw19czaFWZFYOQFSq",
-    "https://mediaart-3bb3.github.io/vr_assets_fall_2024/https%3A%2F%2Fdrive.google.com%2Fopen%3Fid%3D1_k4aYufrtOFFmAK6X-9q0kcIEMH3vyun",
-    "https://mediaart-3bb3.github.io/vr_assets_fall_2024/https%3A%2F%2Fdrive.google.com%2Fopen%3Fid%3D149UK_8sqE3pAIYNF4mc8pVEDO95JQAdo",
-    "https://mediaart-3bb3.github.io/vr_assets_fall_2024/https%3A%2F%2Fdrive.google.com%2Fopen%3Fid%3D1ttJUfS0702R7f2JowtWADlx4j8dK9jo7",
-    "https://mediaart-3bb3.github.io/vr_assets_fall_2024/https%3A%2F%2Fdrive.google.com%2Fopen%3Fid%3D1TlflTMcHCU64L7LhyBDIQBKwaBO95sh8"
+    "https://drive.google.com/open?id=1epJm8Vp9AWAIJyJE8EiLYSVVUKfTXC5l",
+    "https://drive.google.com/open?id=13z_okxIZvxE8J6ye3B5b8JnYY2pjUSNF",
+    "https://drive.google.com/open?id=1v9-NPhtSiRnFBoRKw19czaFWZFYOQFSq",
+    "https://drive.google.com/open?id=1_k4aYufrtOFFmAK6X-9q0kcIEMH3vyun",
+    "https://drive.google.com/open?id=149UK_8sqE3pAIYNF4mc8pVEDO95JQAdo",
+    "https://drive.google.com/open?id=1ttJUfS0702R7f2JowtWADlx4j8dK9jo7",
+    "https://drive.google.com/open?id=1TlflTMcHCU64L7LhyBDIQBKwaBO95sh8",
+    "https://drive.google.com/open?id=1T4dCLUk-xcoVNYi4r-RUWVe0419NEc8P"
   ],
   "images": [
-    "https://mediaart-3bb3.github.io/vr_assets_fall_2024/https%3A%2F%2Fdrive.google.com%2Fopen%3Fid%3D1AdBx9HPUSLt1utl0M-aYnsuX56ivMxUq",
-    "https://mediaart-3bb3.github.io/vr_assets_fall_2024/https%3A%2F%2Fdrive.google.com%2Fopen%3Fid%3D17y5Aj4YP-fC6SXXgMSU-QflIbHhjaTbB"
+    "https://drive.google.com/open?id=1AdBx9HPUSLt1utl0M-aYnsuX56ivMxUq",
+    "https://drive.google.com/open?id=17y5Aj4YP-fC6SXXgMSU-QflIbHhjaTbB"
   ],
   "videos": [
-    "https://mediaart-3bb3.github.io/vr_assets_fall_2024/https%3A%2F%2Fdrive.google.com%2Fopen%3Fid%3D15wQntQUzTvY_uWe0iQj7lz4QoPjESfE3"
+    "https://drive.google.com/open?id=15wQntQUzTvY_uWe0iQj7lz4QoPjESfE3"
   ],
   "audios": [
-    "https://mediaart-3bb3.github.io/vr_assets_fall_2024/https%3A%2F%2Fdrive.google.com%2Fopen%3Fid%3D17w39cwl9iJWBC3BCL_eBEO0f7qiOFVS9",
-    "https://mediaart-3bb3.github.io/vr_assets_fall_2024/https%3A%2F%2Fdrive.google.com%2Fopen%3Fid%3D1N2UY5OwdiZE_rqlTK9Qw9ARX3sULeBDh"
+    "https://drive.google.com/open?id=17w39cwl9iJWBC3BCL_eBEO0f7qiOFVS9",
+    "https://drive.google.com/open?id=1N2UY5OwdiZE_rqlTK9Qw9ARX3sULeBDh"
   ]
 };
 
@@ -59,11 +60,12 @@
           const fileList = fileData[category];
           const listElement = document.getElementById(elementId);
 
-          fileList.forEach(fileLink => {
+          fileList.forEach(fileName => {
             const listItem = document.createElement('li');
+            const encodedFileName = encodeURIComponent(fileName); // Encode filename for URL
             const link = document.createElement('a');
-            link.href = fileLink; // Use the GitHub link
-            link.textContent = fileLink; // Display the GitHub link
+            link.href = `https://mediaart-3bb3.github.io/vr_assets_fall_2024/${encodedFileName}`; // Use the GitHub link
+            link.textContent = fileName; // Display the original filename
             listItem.appendChild(link);
             listElement.appendChild(listItem);
           });
