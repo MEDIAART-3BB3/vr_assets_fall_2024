@@ -1,37 +1,40 @@
 
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Asset Downloads</title>
-      <style>
-        body { font-family: Arial, sans-serif; margin: 20px; padding: 0; background-color: #f4f4f9; }
-        h1 { color: #333; }
-        ul { list-style-type: none; padding: 0; }
-        li { margin: 8px 0; }
-        a { text-decoration: none; color: #007BFF; }
-        a:hover { text-decoration: underline; }
-      </style>
-    </head>
-    <body>
-      <h1>Welcome to the Asset Downloads Page</h1>
-      <p>Below are the uploaded assets organized by category. Click on a link to download the file:</p>
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asset Downloads</title>
+    <style>
+      body { font-family: Arial, sans-serif; margin: 20px; padding: 0; background-color: #f4f4f9; }
+      h1 { color: #333; }
+      table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+      th, td { padding: 10px; border: 1px solid #ccc; }
+      th { background-color: #f0f0f0; }
+      a { text-decoration: none; color: #007BFF; }
+      a:hover { text-decoration: underline; }
+      button { background-color: #007BFF; color: white; border: none; padding: 5px 10px; cursor: pointer; }
+      button:hover { background-color: #0056b3; }
+    </style>
+  </head>
+  <body>
+    <h1>Welcome to the Asset Downloads Page</h1>
+    <p>Below are the uploaded assets organized by category. Click on a link to download the file:</p>
 
-      <h2>3D Models</h2>
-      <ul id="3d-models"></ul>
+    <h2>3D Models</h2>
+    <table id="3d-models"></table>
 
-      <h2>Images</h2>
-      <ul id="images"></ul>
+    <h2>Images</h2>
+    <table id="images"></table>
 
-      <h2>Videos</h2>
-      <ul id="videos"></ul>
+    <h2>Videos</h2>
+    <table id="videos"></table>
 
-      <h2>Audios</h2>
-      <ul id="audios"></ul>
+    <h2>Audios</h2>
+    <table id="audios"></table>
 
-      <script>
-        const fileData = {
+    <script>
+      const fileData = {
   "3d-models": [
     "Bunny.glb",
     "bunny.stl",
@@ -50,7 +53,8 @@
     "Screenshot from 2024-09-01 00-53-52.png",
     "Screenshot from 2024-09-16 08-25-50.png",
     "seis8s2.png",
-    "newSeis8s2.png"
+    "newSeis8s2.png",
+    "Screenshot from 2024-06-26 12-26-29.png"
   ],
   "videos": [
     "demo-Sesis8-defense.mp4"
@@ -61,28 +65,58 @@
   ]
 };
 
-        // Function to populate links dynamically
-        function populateLinks(category, elementId) {
-          const fileList = fileData[category];
-          const listElement = document.getElementById(elementId);
+      // Function to copy text to clipboard
+      function copyToClipboard(text) {
+        navigator.clipboard.writeText(text).then(() => {
+          alert('Link copied to clipboard!');
+        }, (err) => {
+          console.error('Could not copy text: ', err);
+        });
+      }
 
-          fileList.forEach(fileName => {
-            const listItem = document.createElement('li');
-            const encodedFileName = encodeURIComponent(fileName); // Encode filename for URL
-            const link = document.createElement('a');
-            link.href = `https://mediaart-3bb3.github.io/vr_assets_fall_2024/${category}/${encodedFileName}`; // Use the GitHub link
-            link.textContent = link.href; // Display the link
-            listItem.appendChild(link);
-            listElement.appendChild(listItem);
-          });
-        }
+      // Function to populate links dynamically
+      function populateLinks(category, elementId) {
+        const fileList = fileData[category];
+        const tableElement = document.getElementById(elementId);
+        tableElement.innerHTML = '<tr><th>File Name</th><th>Link</th><th>Action</th></tr>'; // Add headers
 
-        // Populate the lists for each category
-        populateLinks("3d-models", "3d-models");
-        populateLinks("images", "images");
-        populateLinks("videos", "videos");
-        populateLinks("audios", "audios");
-      </script>
-    </body>
-    </html>
-  
+        fileList.forEach(fileName => {
+          const encodedFileName = encodeURIComponent(fileName); // Encode filename for URL
+          const linkUrl = `https://mediaart-3bb3.github.io/vr_assets_fall_2024/${category}/${encodedFileName}`;
+          const row = document.createElement('tr');
+          
+          // Create cells
+          const nameCell = document.createElement('td');
+          nameCell.textContent = fileName; // File name
+
+          const linkCell = document.createElement('td');
+          const link = document.createElement('a');
+          link.href = linkUrl; // Use the GitHub link
+          link.textContent = linkUrl; // Display the link
+          link.target = "_blank"; // Open link in new tab
+          linkCell.appendChild(link);
+          
+          const actionCell = document.createElement('td');
+          const copyButton = document.createElement('button');
+          copyButton.textContent = 'Copy Link';
+          copyButton.onclick = () => copyToClipboard(linkUrl); // Copy link to clipboard
+          actionCell.appendChild(copyButton);
+
+          // Append cells to the row
+          row.appendChild(nameCell);
+          row.appendChild(linkCell);
+          row.appendChild(actionCell);
+
+          // Append the row to the table
+          tableElement.appendChild(row);
+        });
+      }
+
+      // Populate the lists for each category
+      populateLinks("3d-models", "3d-models");
+      populateLinks("images", "images");
+      populateLinks("videos", "videos");
+      populateLinks("audios", "audios");
+    </script>
+  </body>
+  </html>
